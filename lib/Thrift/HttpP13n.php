@@ -8,8 +8,8 @@ class HttpP13n
 {
 	protected static $thriftClassLoader = null;
 	protected $dependencies = array(
-		'../../../gen-php/com/boxalino/p13n/api/thrift/P13nService.php',
-		'../../../gen-php/com/boxalino/p13n/api/thrift/Types.php',
+		'../com/boxalino/p13n/api/thrift/P13nService.php',
+		'../com/boxalino/p13n/api/thrift/Types.php',
 	);
 	protected $client = null;
 	protected $transport = null;
