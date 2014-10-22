@@ -21,6 +21,12 @@ interface P13nAdminServiceIf {
   public function saveProfileProperties($profilePropertyValues);
   public function replaceProfileProperties($profilePropertyValues);
   public function command($command);
+  public function retrieveChoice($id);
+  public function retrieveScenario($id);
+  public function retrieveRecommendationVariant($id);
+  public function persistChoice(\com\boxalino\p13n\admin\thrift\Choice $choice);
+  public function persistScenario(\com\boxalino\p13n\admin\thrift\Scenario $scenario);
+  public function persistRecommendationVariant(\com\boxalino\p13n\admin\thrift\RecommendationVariant $recommendationVariant);
 }
 
 class P13nAdminServiceClient implements \com\boxalino\p13n\admin\thrift\P13nAdminServiceIf {
@@ -250,6 +256,330 @@ class P13nAdminServiceClient implements \com\boxalino\p13n\admin\thrift\P13nAdmi
     throw new \Exception("command failed: unknown result");
   }
 
+  public function retrieveChoice($id)
+  {
+    $this->send_retrieveChoice($id);
+    return $this->recv_retrieveChoice();
+  }
+
+  public function send_retrieveChoice($id)
+  {
+    $args = new \com\boxalino\p13n\admin\thrift\P13nAdminService_retrieveChoice_args();
+    $args->id = $id;
+    $bin_accel = ($this->output_ instanceof TBinaryProtocolAccelerated) && function_exists('thrift_protocol_write_binary');
+    if ($bin_accel)
+    {
+      thrift_protocol_write_binary($this->output_, 'retrieveChoice', TMessageType::CALL, $args, $this->seqid_, $this->output_->isStrictWrite());
+    }
+    else
+    {
+      $this->output_->writeMessageBegin('retrieveChoice', TMessageType::CALL, $this->seqid_);
+      $args->write($this->output_);
+      $this->output_->writeMessageEnd();
+      $this->output_->getTransport()->flush();
+    }
+  }
+
+  public function recv_retrieveChoice()
+  {
+    $bin_accel = ($this->input_ instanceof TBinaryProtocolAccelerated) && function_exists('thrift_protocol_read_binary');
+    if ($bin_accel) $result = thrift_protocol_read_binary($this->input_, '\com\boxalino\p13n\admin\thrift\P13nAdminService_retrieveChoice_result', $this->input_->isStrictRead());
+    else
+    {
+      $rseqid = 0;
+      $fname = null;
+      $mtype = 0;
+
+      $this->input_->readMessageBegin($fname, $mtype, $rseqid);
+      if ($mtype == TMessageType::EXCEPTION) {
+        $x = new TApplicationException();
+        $x->read($this->input_);
+        $this->input_->readMessageEnd();
+        throw $x;
+      }
+      $result = new \com\boxalino\p13n\admin\thrift\P13nAdminService_retrieveChoice_result();
+      $result->read($this->input_);
+      $this->input_->readMessageEnd();
+    }
+    if ($result->success !== null) {
+      return $result->success;
+    }
+    if ($result->p13nServiceException !== null) {
+      throw $result->p13nServiceException;
+    }
+    throw new \Exception("retrieveChoice failed: unknown result");
+  }
+
+  public function retrieveScenario($id)
+  {
+    $this->send_retrieveScenario($id);
+    return $this->recv_retrieveScenario();
+  }
+
+  public function send_retrieveScenario($id)
+  {
+    $args = new \com\boxalino\p13n\admin\thrift\P13nAdminService_retrieveScenario_args();
+    $args->id = $id;
+    $bin_accel = ($this->output_ instanceof TBinaryProtocolAccelerated) && function_exists('thrift_protocol_write_binary');
+    if ($bin_accel)
+    {
+      thrift_protocol_write_binary($this->output_, 'retrieveScenario', TMessageType::CALL, $args, $this->seqid_, $this->output_->isStrictWrite());
+    }
+    else
+    {
+      $this->output_->writeMessageBegin('retrieveScenario', TMessageType::CALL, $this->seqid_);
+      $args->write($this->output_);
+      $this->output_->writeMessageEnd();
+      $this->output_->getTransport()->flush();
+    }
+  }
+
+  public function recv_retrieveScenario()
+  {
+    $bin_accel = ($this->input_ instanceof TBinaryProtocolAccelerated) && function_exists('thrift_protocol_read_binary');
+    if ($bin_accel) $result = thrift_protocol_read_binary($this->input_, '\com\boxalino\p13n\admin\thrift\P13nAdminService_retrieveScenario_result', $this->input_->isStrictRead());
+    else
+    {
+      $rseqid = 0;
+      $fname = null;
+      $mtype = 0;
+
+      $this->input_->readMessageBegin($fname, $mtype, $rseqid);
+      if ($mtype == TMessageType::EXCEPTION) {
+        $x = new TApplicationException();
+        $x->read($this->input_);
+        $this->input_->readMessageEnd();
+        throw $x;
+      }
+      $result = new \com\boxalino\p13n\admin\thrift\P13nAdminService_retrieveScenario_result();
+      $result->read($this->input_);
+      $this->input_->readMessageEnd();
+    }
+    if ($result->success !== null) {
+      return $result->success;
+    }
+    if ($result->p13nServiceException !== null) {
+      throw $result->p13nServiceException;
+    }
+    throw new \Exception("retrieveScenario failed: unknown result");
+  }
+
+  public function retrieveRecommendationVariant($id)
+  {
+    $this->send_retrieveRecommendationVariant($id);
+    return $this->recv_retrieveRecommendationVariant();
+  }
+
+  public function send_retrieveRecommendationVariant($id)
+  {
+    $args = new \com\boxalino\p13n\admin\thrift\P13nAdminService_retrieveRecommendationVariant_args();
+    $args->id = $id;
+    $bin_accel = ($this->output_ instanceof TBinaryProtocolAccelerated) && function_exists('thrift_protocol_write_binary');
+    if ($bin_accel)
+    {
+      thrift_protocol_write_binary($this->output_, 'retrieveRecommendationVariant', TMessageType::CALL, $args, $this->seqid_, $this->output_->isStrictWrite());
+    }
+    else
+    {
+      $this->output_->writeMessageBegin('retrieveRecommendationVariant', TMessageType::CALL, $this->seqid_);
+      $args->write($this->output_);
+      $this->output_->writeMessageEnd();
+      $this->output_->getTransport()->flush();
+    }
+  }
+
+  public function recv_retrieveRecommendationVariant()
+  {
+    $bin_accel = ($this->input_ instanceof TBinaryProtocolAccelerated) && function_exists('thrift_protocol_read_binary');
+    if ($bin_accel) $result = thrift_protocol_read_binary($this->input_, '\com\boxalino\p13n\admin\thrift\P13nAdminService_retrieveRecommendationVariant_result', $this->input_->isStrictRead());
+    else
+    {
+      $rseqid = 0;
+      $fname = null;
+      $mtype = 0;
+
+      $this->input_->readMessageBegin($fname, $mtype, $rseqid);
+      if ($mtype == TMessageType::EXCEPTION) {
+        $x = new TApplicationException();
+        $x->read($this->input_);
+        $this->input_->readMessageEnd();
+        throw $x;
+      }
+      $result = new \com\boxalino\p13n\admin\thrift\P13nAdminService_retrieveRecommendationVariant_result();
+      $result->read($this->input_);
+      $this->input_->readMessageEnd();
+    }
+    if ($result->success !== null) {
+      return $result->success;
+    }
+    if ($result->p13nServiceException !== null) {
+      throw $result->p13nServiceException;
+    }
+    throw new \Exception("retrieveRecommendationVariant failed: unknown result");
+  }
+
+  public function persistChoice(\com\boxalino\p13n\admin\thrift\Choice $choice)
+  {
+    $this->send_persistChoice($choice);
+    return $this->recv_persistChoice();
+  }
+
+  public function send_persistChoice(\com\boxalino\p13n\admin\thrift\Choice $choice)
+  {
+    $args = new \com\boxalino\p13n\admin\thrift\P13nAdminService_persistChoice_args();
+    $args->choice = $choice;
+    $bin_accel = ($this->output_ instanceof TBinaryProtocolAccelerated) && function_exists('thrift_protocol_write_binary');
+    if ($bin_accel)
+    {
+      thrift_protocol_write_binary($this->output_, 'persistChoice', TMessageType::CALL, $args, $this->seqid_, $this->output_->isStrictWrite());
+    }
+    else
+    {
+      $this->output_->writeMessageBegin('persistChoice', TMessageType::CALL, $this->seqid_);
+      $args->write($this->output_);
+      $this->output_->writeMessageEnd();
+      $this->output_->getTransport()->flush();
+    }
+  }
+
+  public function recv_persistChoice()
+  {
+    $bin_accel = ($this->input_ instanceof TBinaryProtocolAccelerated) && function_exists('thrift_protocol_read_binary');
+    if ($bin_accel) $result = thrift_protocol_read_binary($this->input_, '\com\boxalino\p13n\admin\thrift\P13nAdminService_persistChoice_result', $this->input_->isStrictRead());
+    else
+    {
+      $rseqid = 0;
+      $fname = null;
+      $mtype = 0;
+
+      $this->input_->readMessageBegin($fname, $mtype, $rseqid);
+      if ($mtype == TMessageType::EXCEPTION) {
+        $x = new TApplicationException();
+        $x->read($this->input_);
+        $this->input_->readMessageEnd();
+        throw $x;
+      }
+      $result = new \com\boxalino\p13n\admin\thrift\P13nAdminService_persistChoice_result();
+      $result->read($this->input_);
+      $this->input_->readMessageEnd();
+    }
+    if ($result->success !== null) {
+      return $result->success;
+    }
+    if ($result->p13nServiceException !== null) {
+      throw $result->p13nServiceException;
+    }
+    throw new \Exception("persistChoice failed: unknown result");
+  }
+
+  public function persistScenario(\com\boxalino\p13n\admin\thrift\Scenario $scenario)
+  {
+    $this->send_persistScenario($scenario);
+    return $this->recv_persistScenario();
+  }
+
+  public function send_persistScenario(\com\boxalino\p13n\admin\thrift\Scenario $scenario)
+  {
+    $args = new \com\boxalino\p13n\admin\thrift\P13nAdminService_persistScenario_args();
+    $args->scenario = $scenario;
+    $bin_accel = ($this->output_ instanceof TBinaryProtocolAccelerated) && function_exists('thrift_protocol_write_binary');
+    if ($bin_accel)
+    {
+      thrift_protocol_write_binary($this->output_, 'persistScenario', TMessageType::CALL, $args, $this->seqid_, $this->output_->isStrictWrite());
+    }
+    else
+    {
+      $this->output_->writeMessageBegin('persistScenario', TMessageType::CALL, $this->seqid_);
+      $args->write($this->output_);
+      $this->output_->writeMessageEnd();
+      $this->output_->getTransport()->flush();
+    }
+  }
+
+  public function recv_persistScenario()
+  {
+    $bin_accel = ($this->input_ instanceof TBinaryProtocolAccelerated) && function_exists('thrift_protocol_read_binary');
+    if ($bin_accel) $result = thrift_protocol_read_binary($this->input_, '\com\boxalino\p13n\admin\thrift\P13nAdminService_persistScenario_result', $this->input_->isStrictRead());
+    else
+    {
+      $rseqid = 0;
+      $fname = null;
+      $mtype = 0;
+
+      $this->input_->readMessageBegin($fname, $mtype, $rseqid);
+      if ($mtype == TMessageType::EXCEPTION) {
+        $x = new TApplicationException();
+        $x->read($this->input_);
+        $this->input_->readMessageEnd();
+        throw $x;
+      }
+      $result = new \com\boxalino\p13n\admin\thrift\P13nAdminService_persistScenario_result();
+      $result->read($this->input_);
+      $this->input_->readMessageEnd();
+    }
+    if ($result->success !== null) {
+      return $result->success;
+    }
+    if ($result->p13nServiceException !== null) {
+      throw $result->p13nServiceException;
+    }
+    throw new \Exception("persistScenario failed: unknown result");
+  }
+
+  public function persistRecommendationVariant(\com\boxalino\p13n\admin\thrift\RecommendationVariant $recommendationVariant)
+  {
+    $this->send_persistRecommendationVariant($recommendationVariant);
+    return $this->recv_persistRecommendationVariant();
+  }
+
+  public function send_persistRecommendationVariant(\com\boxalino\p13n\admin\thrift\RecommendationVariant $recommendationVariant)
+  {
+    $args = new \com\boxalino\p13n\admin\thrift\P13nAdminService_persistRecommendationVariant_args();
+    $args->recommendationVariant = $recommendationVariant;
+    $bin_accel = ($this->output_ instanceof TBinaryProtocolAccelerated) && function_exists('thrift_protocol_write_binary');
+    if ($bin_accel)
+    {
+      thrift_protocol_write_binary($this->output_, 'persistRecommendationVariant', TMessageType::CALL, $args, $this->seqid_, $this->output_->isStrictWrite());
+    }
+    else
+    {
+      $this->output_->writeMessageBegin('persistRecommendationVariant', TMessageType::CALL, $this->seqid_);
+      $args->write($this->output_);
+      $this->output_->writeMessageEnd();
+      $this->output_->getTransport()->flush();
+    }
+  }
+
+  public function recv_persistRecommendationVariant()
+  {
+    $bin_accel = ($this->input_ instanceof TBinaryProtocolAccelerated) && function_exists('thrift_protocol_read_binary');
+    if ($bin_accel) $result = thrift_protocol_read_binary($this->input_, '\com\boxalino\p13n\admin\thrift\P13nAdminService_persistRecommendationVariant_result', $this->input_->isStrictRead());
+    else
+    {
+      $rseqid = 0;
+      $fname = null;
+      $mtype = 0;
+
+      $this->input_->readMessageBegin($fname, $mtype, $rseqid);
+      if ($mtype == TMessageType::EXCEPTION) {
+        $x = new TApplicationException();
+        $x->read($this->input_);
+        $this->input_->readMessageEnd();
+        throw $x;
+      }
+      $result = new \com\boxalino\p13n\admin\thrift\P13nAdminService_persistRecommendationVariant_result();
+      $result->read($this->input_);
+      $this->input_->readMessageEnd();
+    }
+    if ($result->success !== null) {
+      return $result->success;
+    }
+    if ($result->p13nServiceException !== null) {
+      throw $result->p13nServiceException;
+    }
+    throw new \Exception("persistRecommendationVariant failed: unknown result");
+  }
+
 }
 
 // HELPER FUNCTIONS AND STRUCTURES
@@ -468,15 +798,15 @@ class P13nAdminService_saveProfileProperties_args {
         case -1:
           if ($ftype == TType::LST) {
             $this->profilePropertyValues = array();
-            $_size0 = 0;
-            $_etype3 = 0;
-            $xfer += $input->readListBegin($_etype3, $_size0);
-            for ($_i4 = 0; $_i4 < $_size0; ++$_i4)
+            $_size34 = 0;
+            $_etype37 = 0;
+            $xfer += $input->readListBegin($_etype37, $_size34);
+            for ($_i38 = 0; $_i38 < $_size34; ++$_i38)
             {
-              $elem5 = null;
-              $elem5 = new \com\boxalino\p13n\admin\thrift\ProfilePropertyValue();
-              $xfer += $elem5->read($input);
-              $this->profilePropertyValues []= $elem5;
+              $elem39 = null;
+              $elem39 = new \com\boxalino\p13n\admin\thrift\ProfilePropertyValue();
+              $xfer += $elem39->read($input);
+              $this->profilePropertyValues []= $elem39;
             }
             $xfer += $input->readListEnd();
           } else {
@@ -504,9 +834,9 @@ class P13nAdminService_saveProfileProperties_args {
       {
         $output->writeListBegin(TType::STRUCT, count($this->profilePropertyValues));
         {
-          foreach ($this->profilePropertyValues as $iter6)
+          foreach ($this->profilePropertyValues as $iter40)
           {
-            $xfer += $iter6->write($output);
+            $xfer += $iter40->write($output);
           }
         }
         $output->writeListEnd();
@@ -662,15 +992,15 @@ class P13nAdminService_replaceProfileProperties_args {
         case -1:
           if ($ftype == TType::LST) {
             $this->profilePropertyValues = array();
-            $_size7 = 0;
-            $_etype10 = 0;
-            $xfer += $input->readListBegin($_etype10, $_size7);
-            for ($_i11 = 0; $_i11 < $_size7; ++$_i11)
+            $_size41 = 0;
+            $_etype44 = 0;
+            $xfer += $input->readListBegin($_etype44, $_size41);
+            for ($_i45 = 0; $_i45 < $_size41; ++$_i45)
             {
-              $elem12 = null;
-              $elem12 = new \com\boxalino\p13n\admin\thrift\ProfilePropertyValue();
-              $xfer += $elem12->read($input);
-              $this->profilePropertyValues []= $elem12;
+              $elem46 = null;
+              $elem46 = new \com\boxalino\p13n\admin\thrift\ProfilePropertyValue();
+              $xfer += $elem46->read($input);
+              $this->profilePropertyValues []= $elem46;
             }
             $xfer += $input->readListEnd();
           } else {
@@ -698,9 +1028,9 @@ class P13nAdminService_replaceProfileProperties_args {
       {
         $output->writeListBegin(TType::STRUCT, count($this->profilePropertyValues));
         {
-          foreach ($this->profilePropertyValues as $iter13)
+          foreach ($this->profilePropertyValues as $iter47)
           {
-            $xfer += $iter13->write($output);
+            $xfer += $iter47->write($output);
           }
         }
         $output->writeListEnd();
@@ -957,6 +1287,1032 @@ class P13nAdminService_command_result {
   public function write($output) {
     $xfer = 0;
     $xfer += $output->writeStructBegin('P13nAdminService_command_result');
+    if ($this->success !== null) {
+      $xfer += $output->writeFieldBegin('success', TType::STRING, 0);
+      $xfer += $output->writeString($this->success);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->p13nServiceException !== null) {
+      $xfer += $output->writeFieldBegin('p13nServiceException', TType::STRUCT, 1);
+      $xfer += $this->p13nServiceException->write($output);
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
+class P13nAdminService_retrieveChoice_args {
+  static $_TSPEC;
+
+  public $id = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        -1 => array(
+          'var' => 'id',
+          'type' => TType::STRING,
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['id'])) {
+        $this->id = $vals['id'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'P13nAdminService_retrieveChoice_args';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case -1:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->id);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('P13nAdminService_retrieveChoice_args');
+    if ($this->id !== null) {
+      $xfer += $output->writeFieldBegin('id', TType::STRING, -1);
+      $xfer += $output->writeString($this->id);
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
+class P13nAdminService_retrieveChoice_result {
+  static $_TSPEC;
+
+  public $success = null;
+  public $p13nServiceException = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        0 => array(
+          'var' => 'success',
+          'type' => TType::STRUCT,
+          'class' => '\com\boxalino\p13n\admin\thrift\Choice',
+          ),
+        1 => array(
+          'var' => 'p13nServiceException',
+          'type' => TType::STRUCT,
+          'class' => '\com\boxalino\p13n\admin\thrift\P13nServiceException',
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['success'])) {
+        $this->success = $vals['success'];
+      }
+      if (isset($vals['p13nServiceException'])) {
+        $this->p13nServiceException = $vals['p13nServiceException'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'P13nAdminService_retrieveChoice_result';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case 0:
+          if ($ftype == TType::STRUCT) {
+            $this->success = new \com\boxalino\p13n\admin\thrift\Choice();
+            $xfer += $this->success->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 1:
+          if ($ftype == TType::STRUCT) {
+            $this->p13nServiceException = new \com\boxalino\p13n\admin\thrift\P13nServiceException();
+            $xfer += $this->p13nServiceException->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('P13nAdminService_retrieveChoice_result');
+    if ($this->success !== null) {
+      if (!is_object($this->success)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('success', TType::STRUCT, 0);
+      $xfer += $this->success->write($output);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->p13nServiceException !== null) {
+      $xfer += $output->writeFieldBegin('p13nServiceException', TType::STRUCT, 1);
+      $xfer += $this->p13nServiceException->write($output);
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
+class P13nAdminService_retrieveScenario_args {
+  static $_TSPEC;
+
+  public $id = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        -1 => array(
+          'var' => 'id',
+          'type' => TType::STRING,
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['id'])) {
+        $this->id = $vals['id'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'P13nAdminService_retrieveScenario_args';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case -1:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->id);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('P13nAdminService_retrieveScenario_args');
+    if ($this->id !== null) {
+      $xfer += $output->writeFieldBegin('id', TType::STRING, -1);
+      $xfer += $output->writeString($this->id);
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
+class P13nAdminService_retrieveScenario_result {
+  static $_TSPEC;
+
+  public $success = null;
+  public $p13nServiceException = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        0 => array(
+          'var' => 'success',
+          'type' => TType::STRUCT,
+          'class' => '\com\boxalino\p13n\admin\thrift\Scenario',
+          ),
+        1 => array(
+          'var' => 'p13nServiceException',
+          'type' => TType::STRUCT,
+          'class' => '\com\boxalino\p13n\admin\thrift\P13nServiceException',
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['success'])) {
+        $this->success = $vals['success'];
+      }
+      if (isset($vals['p13nServiceException'])) {
+        $this->p13nServiceException = $vals['p13nServiceException'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'P13nAdminService_retrieveScenario_result';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case 0:
+          if ($ftype == TType::STRUCT) {
+            $this->success = new \com\boxalino\p13n\admin\thrift\Scenario();
+            $xfer += $this->success->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 1:
+          if ($ftype == TType::STRUCT) {
+            $this->p13nServiceException = new \com\boxalino\p13n\admin\thrift\P13nServiceException();
+            $xfer += $this->p13nServiceException->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('P13nAdminService_retrieveScenario_result');
+    if ($this->success !== null) {
+      if (!is_object($this->success)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('success', TType::STRUCT, 0);
+      $xfer += $this->success->write($output);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->p13nServiceException !== null) {
+      $xfer += $output->writeFieldBegin('p13nServiceException', TType::STRUCT, 1);
+      $xfer += $this->p13nServiceException->write($output);
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
+class P13nAdminService_retrieveRecommendationVariant_args {
+  static $_TSPEC;
+
+  public $id = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        -1 => array(
+          'var' => 'id',
+          'type' => TType::STRING,
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['id'])) {
+        $this->id = $vals['id'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'P13nAdminService_retrieveRecommendationVariant_args';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case -1:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->id);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('P13nAdminService_retrieveRecommendationVariant_args');
+    if ($this->id !== null) {
+      $xfer += $output->writeFieldBegin('id', TType::STRING, -1);
+      $xfer += $output->writeString($this->id);
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
+class P13nAdminService_retrieveRecommendationVariant_result {
+  static $_TSPEC;
+
+  public $success = null;
+  public $p13nServiceException = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        0 => array(
+          'var' => 'success',
+          'type' => TType::STRUCT,
+          'class' => '\com\boxalino\p13n\admin\thrift\RecommendationVariant',
+          ),
+        1 => array(
+          'var' => 'p13nServiceException',
+          'type' => TType::STRUCT,
+          'class' => '\com\boxalino\p13n\admin\thrift\P13nServiceException',
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['success'])) {
+        $this->success = $vals['success'];
+      }
+      if (isset($vals['p13nServiceException'])) {
+        $this->p13nServiceException = $vals['p13nServiceException'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'P13nAdminService_retrieveRecommendationVariant_result';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case 0:
+          if ($ftype == TType::STRUCT) {
+            $this->success = new \com\boxalino\p13n\admin\thrift\RecommendationVariant();
+            $xfer += $this->success->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 1:
+          if ($ftype == TType::STRUCT) {
+            $this->p13nServiceException = new \com\boxalino\p13n\admin\thrift\P13nServiceException();
+            $xfer += $this->p13nServiceException->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('P13nAdminService_retrieveRecommendationVariant_result');
+    if ($this->success !== null) {
+      if (!is_object($this->success)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('success', TType::STRUCT, 0);
+      $xfer += $this->success->write($output);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->p13nServiceException !== null) {
+      $xfer += $output->writeFieldBegin('p13nServiceException', TType::STRUCT, 1);
+      $xfer += $this->p13nServiceException->write($output);
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
+class P13nAdminService_persistChoice_args {
+  static $_TSPEC;
+
+  public $choice = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        -1 => array(
+          'var' => 'choice',
+          'type' => TType::STRUCT,
+          'class' => '\com\boxalino\p13n\admin\thrift\Choice',
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['choice'])) {
+        $this->choice = $vals['choice'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'P13nAdminService_persistChoice_args';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case -1:
+          if ($ftype == TType::STRUCT) {
+            $this->choice = new \com\boxalino\p13n\admin\thrift\Choice();
+            $xfer += $this->choice->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('P13nAdminService_persistChoice_args');
+    if ($this->choice !== null) {
+      if (!is_object($this->choice)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('choice', TType::STRUCT, -1);
+      $xfer += $this->choice->write($output);
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
+class P13nAdminService_persistChoice_result {
+  static $_TSPEC;
+
+  public $success = null;
+  public $p13nServiceException = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        0 => array(
+          'var' => 'success',
+          'type' => TType::STRING,
+          ),
+        1 => array(
+          'var' => 'p13nServiceException',
+          'type' => TType::STRUCT,
+          'class' => '\com\boxalino\p13n\admin\thrift\P13nServiceException',
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['success'])) {
+        $this->success = $vals['success'];
+      }
+      if (isset($vals['p13nServiceException'])) {
+        $this->p13nServiceException = $vals['p13nServiceException'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'P13nAdminService_persistChoice_result';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case 0:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->success);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 1:
+          if ($ftype == TType::STRUCT) {
+            $this->p13nServiceException = new \com\boxalino\p13n\admin\thrift\P13nServiceException();
+            $xfer += $this->p13nServiceException->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('P13nAdminService_persistChoice_result');
+    if ($this->success !== null) {
+      $xfer += $output->writeFieldBegin('success', TType::STRING, 0);
+      $xfer += $output->writeString($this->success);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->p13nServiceException !== null) {
+      $xfer += $output->writeFieldBegin('p13nServiceException', TType::STRUCT, 1);
+      $xfer += $this->p13nServiceException->write($output);
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
+class P13nAdminService_persistScenario_args {
+  static $_TSPEC;
+
+  public $scenario = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        -1 => array(
+          'var' => 'scenario',
+          'type' => TType::STRUCT,
+          'class' => '\com\boxalino\p13n\admin\thrift\Scenario',
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['scenario'])) {
+        $this->scenario = $vals['scenario'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'P13nAdminService_persistScenario_args';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case -1:
+          if ($ftype == TType::STRUCT) {
+            $this->scenario = new \com\boxalino\p13n\admin\thrift\Scenario();
+            $xfer += $this->scenario->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('P13nAdminService_persistScenario_args');
+    if ($this->scenario !== null) {
+      if (!is_object($this->scenario)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('scenario', TType::STRUCT, -1);
+      $xfer += $this->scenario->write($output);
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
+class P13nAdminService_persistScenario_result {
+  static $_TSPEC;
+
+  public $success = null;
+  public $p13nServiceException = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        0 => array(
+          'var' => 'success',
+          'type' => TType::STRING,
+          ),
+        1 => array(
+          'var' => 'p13nServiceException',
+          'type' => TType::STRUCT,
+          'class' => '\com\boxalino\p13n\admin\thrift\P13nServiceException',
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['success'])) {
+        $this->success = $vals['success'];
+      }
+      if (isset($vals['p13nServiceException'])) {
+        $this->p13nServiceException = $vals['p13nServiceException'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'P13nAdminService_persistScenario_result';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case 0:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->success);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 1:
+          if ($ftype == TType::STRUCT) {
+            $this->p13nServiceException = new \com\boxalino\p13n\admin\thrift\P13nServiceException();
+            $xfer += $this->p13nServiceException->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('P13nAdminService_persistScenario_result');
+    if ($this->success !== null) {
+      $xfer += $output->writeFieldBegin('success', TType::STRING, 0);
+      $xfer += $output->writeString($this->success);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->p13nServiceException !== null) {
+      $xfer += $output->writeFieldBegin('p13nServiceException', TType::STRUCT, 1);
+      $xfer += $this->p13nServiceException->write($output);
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
+class P13nAdminService_persistRecommendationVariant_args {
+  static $_TSPEC;
+
+  public $recommendationVariant = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        -1 => array(
+          'var' => 'recommendationVariant',
+          'type' => TType::STRUCT,
+          'class' => '\com\boxalino\p13n\admin\thrift\RecommendationVariant',
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['recommendationVariant'])) {
+        $this->recommendationVariant = $vals['recommendationVariant'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'P13nAdminService_persistRecommendationVariant_args';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case -1:
+          if ($ftype == TType::STRUCT) {
+            $this->recommendationVariant = new \com\boxalino\p13n\admin\thrift\RecommendationVariant();
+            $xfer += $this->recommendationVariant->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('P13nAdminService_persistRecommendationVariant_args');
+    if ($this->recommendationVariant !== null) {
+      if (!is_object($this->recommendationVariant)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('recommendationVariant', TType::STRUCT, -1);
+      $xfer += $this->recommendationVariant->write($output);
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
+class P13nAdminService_persistRecommendationVariant_result {
+  static $_TSPEC;
+
+  public $success = null;
+  public $p13nServiceException = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        0 => array(
+          'var' => 'success',
+          'type' => TType::STRING,
+          ),
+        1 => array(
+          'var' => 'p13nServiceException',
+          'type' => TType::STRUCT,
+          'class' => '\com\boxalino\p13n\admin\thrift\P13nServiceException',
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['success'])) {
+        $this->success = $vals['success'];
+      }
+      if (isset($vals['p13nServiceException'])) {
+        $this->p13nServiceException = $vals['p13nServiceException'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'P13nAdminService_persistRecommendationVariant_result';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case 0:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->success);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 1:
+          if ($ftype == TType::STRUCT) {
+            $this->p13nServiceException = new \com\boxalino\p13n\admin\thrift\P13nServiceException();
+            $xfer += $this->p13nServiceException->read($input);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('P13nAdminService_persistRecommendationVariant_result');
     if ($this->success !== null) {
       $xfer += $output->writeFieldBegin('success', TType::STRING, 0);
       $xfer += $output->writeString($this->success);

@@ -14,6 +14,7 @@
 <li><a href="#Fn_P13nService_autocomplete">autocomplete</a></li>
 <li><a href="#Fn_P13nService_batchChoose">batchChoose</a></li>
 <li><a href="#Fn_P13nService_choose">choose</a></li>
+<li><a href="#Fn_P13nService_updateChoice">updateChoice</a></li>
 </ul>
 </td>
 <td><a href="#Struct_AutocompleteHit">AutocompleteHit</a><br/>
@@ -25,6 +26,8 @@
 <a href="#Struct_ChoiceInquiry">ChoiceInquiry</a><br/>
 <a href="#Struct_ChoiceRequest">ChoiceRequest</a><br/>
 <a href="#Struct_ChoiceResponse">ChoiceResponse</a><br/>
+<a href="#Struct_ChoiceUpdateRequest">ChoiceUpdateRequest</a><br/>
+<a href="#Struct_ChoiceUpdateResponse">ChoiceUpdateResponse</a><br/>
 <a href="#Struct_ContextItem">ContextItem</a><br/>
 <a href="#Enum_DateRangeGap">DateRangeGap</a><br/>
 <a href="#Struct_FacetRequest">FacetRequest</a><br/>
@@ -91,36 +94,36 @@ Whether facets should be order by population descending or by collation
 <tr><td>8</td><td>rangeTo</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
 <tr><td>9</td><td>rangeToInclusive</td><td><code>bool</code></td><td></td><td>default</td><td></td></tr>
 </table><br/>Filter to be used in query. Note that type of generated filter depends on first non-null and non-empty value in order of preference. Values of lower priority are ignored:
-stringValues!=null && simpleValues.size()&gt;0 =&gt; simple match, prefix!=null =&gt; prefix match, hierarchy!=null && hierarchy.size()&gt;0 =&gt; hierarchy filter, else range filter
-
+stringValues!=null && simpleValues.size()>0 => simple match, prefix!=null => prefix match, hierarchy!=null && hierarchy.size()>0 => hierarchy filter, else range filter
+<p/>
 <dl>
 <dt>negative</dt>
 <dd>whether the filter is negative (boolean NOT)</dd>
-
+<p/>
 <dt>fieldName</dt>
 <dd>field name to apply filter to</dd>
-
+<p/>
 <dt>stringValues</dt>
 <dd>values for simple match</dd>
-
+<p/>
 <dt>prefix</dt>
 <dd>prefix match</dd>
-
+<p/>
 <dt>hierarchyId</dt>
 <dd>hierarchy filter - when corresponding hierarchical field has encoded id</dd>
-
+<p/>
 <dt>hierarchy</dt>
 <dd>hierarchy filter - for example categories path in top-down order</dd>
-
+<p/>
 <dt>rangeFrom</dt>
 <dd>lower bound for range filter</dd>
-
+<p/>
 <dt>rangeFromInclusive</dt>
 <dd>whether the lower bound is inclusive</dd>
-
+<p/>
 <dt>rangeTo</dt>
 <dd>upper bound for range filter</dd>
-
+<p/>
 <dt>rangeToInclusive</dt>
 <dd>whether the upper bound is inclusive</dd>
 </dl>
@@ -136,22 +139,22 @@ stringValues!=null && simpleValues.size()&gt;0 =&gt; simple match, prefix!=null 
 </table><br/><dl>
 <dt>stringValue</dt>
 <dd>corresponding value of the facet</dd>
-
+<p/>
 <dt>rangeFromInclusive</dt>
 <dd>if range facets lower bound (inclusive)</dd>
-
+<p/>
 <dt>rangeToExclusive</dt>
 <dd>if range facets upper bound (inclusive)</dd>
-
+<p/>
 <dt>hitCount</dt>
 <dd>number of hits found</dd>
-
+<p/>
 <dt>hierarchyId</dt>
 <dd>id of hierarchy if corresponding field is hierarchical</dd>
-
+<p/>
 <dt>hierarchy</dt>
 <dd>hierarchy if corresponding field is hierarchical</dd>
-
+<p/>
 <dt>selected</dt>
 <dd>whether the facet value has been selected in corresponding FacetRequest</dd>
 </dl>
@@ -160,43 +163,43 @@ stringValues!=null && simpleValues.size()&gt;0 =&gt; simple match, prefix!=null 
 <tr><td>1</td><td>fieldName</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
 <tr><td>2</td><td>numerical</td><td><code>bool</code></td><td></td><td>default</td><td></td></tr>
 <tr><td>3</td><td>range</td><td><code>bool</code></td><td></td><td>default</td><td></td></tr>
-<tr><td>4</td><td>maxCount</td><td><code>i32</code></td><td></td><td>default</td><td><code>-1</code></td></tr>
-<tr><td>5</td><td>minPopulation</td><td><code>i32</code></td><td></td><td>default</td><td><code>1</code></td></tr>
+<tr><td>4</td><td>maxCount</td><td><code>i32</code></td><td></td><td>default</td><td>-1</td></tr>
+<tr><td>5</td><td>minPopulation</td><td><code>i32</code></td><td></td><td>default</td><td>1</td></tr>
 <tr><td>6</td><td>dateRangeGap</td><td><code><a href="p13n.html#Enum_DateRangeGap">DateRangeGap</a></code></td><td></td><td>default</td><td></td></tr>
 <tr><td>7</td><td>sortOrder</td><td><code><a href="p13n.html#Enum_FacetSortOrder">FacetSortOrder</a></code></td><td></td><td>default</td><td></td></tr>
 <tr><td>8</td><td>sortAscending</td><td><code>bool</code></td><td></td><td>default</td><td></td></tr>
 <tr><td>90</td><td>selectedValues</td><td><code>list&lt;<code><a href="p13n.html#Struct_FacetValue">FacetValue</a></code>&gt;</code></td><td></td><td>default</td><td></td></tr>
-<tr><td>100</td><td>andSelectedValues</td><td><code>bool</code></td><td></td><td>default</td><td><code>false</code></td></tr>
+<tr><td>100</td><td>andSelectedValues</td><td><code>bool</code></td><td></td><td>default</td><td>0</td></tr>
 </table><br/><dl>
 <dt>fieldName</dt>
 <dd>name of the field to get facet for</dd>
-
+<p/>
 <dt>numerical</dt>
 <dd>whether the facet is numerical</dd>
-
+<p/>
 <dt>range</dt>
 <dd>whether the facet is range facet</dd>
-
+<p/>
 <dt>maxCount</dt>
 <dd>maximum number of facets to return by given order, -1 for all of them</dd>
-
+<p/>
 <dt>minPopulation</dt>
 <dd>minimum facet population to return</dd>
-
+<p/>
 <dt>dateRangeGap</dt>
 <dd>if the corresponding field is date then the gap to be used for facet</dd>
-
+<p/>
 <dt>sortOrder</dt>
 <dd>sort order</dd>
-
+<p/>
 <dt>sortAscending</dt>
 <dd>whether the sort should be done ascending</dd>
-
+<p/>
 <dt>selectedValues</dt>
 <dd>values selected from the facet.</dd>
 <dd>Note that results will be filtered by these values, but the corresponding
 FacetResponse is as if this filter was not applied</dd>
-
+<p/>
 <dt>andSelectedValues</dt>
 <dd>whether selectedValues should be considered in AND logic, meaning filter
 out those that don't contain ALL selected values - default is OR - include
@@ -220,55 +223,55 @@ those contianing any of selectedValue</dd>
 <tr><td>9</td><td>hitCount</td><td><code>i32</code></td><td></td><td>default</td><td></td></tr>
 <tr><td>10</td><td>returnFields</td><td><code>list&lt;<code>string</code>&gt;</code></td><td></td><td>default</td><td></td></tr>
 <tr><td>20</td><td>groupBy</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
-<tr><td>30</td><td>groupFacets</td><td><code>bool</code></td><td></td><td>default</td><td><code>true</code></td></tr>
-<tr><td>40</td><td>groupItemsCount</td><td><code>i32</code></td><td></td><td>default</td><td><code>1</code></td></tr>
-<tr><td>50</td><td>groupItemsSort</td><td><code>string</code></td><td></td><td>default</td><td><code>"score"</code></td></tr>
-<tr><td>60</td><td>groupItemsSortAscending</td><td><code>bool</code></td><td></td><td>default</td><td><code>false</code></td></tr>
+<tr><td>30</td><td>groupFacets</td><td><code>bool</code></td><td></td><td>default</td><td>1</td></tr>
+<tr><td>40</td><td>groupItemsCount</td><td><code>i32</code></td><td></td><td>default</td><td>1</td></tr>
+<tr><td>50</td><td>groupItemsSort</td><td><code>string</code></td><td></td><td>default</td><td>"score"</td></tr>
+<tr><td>60</td><td>groupItemsSortAscending</td><td><code>bool</code></td><td></td><td>default</td><td>0</td></tr>
 </table><br/><dl>
 <dt>indexId</dt>
 <dd>indexId to be used for search</dd>
-
+<p/>
 <dt>language</dt>
 <dd>language for localization</dd>
-
+<p/>
 <dt>queryText</dt>
 <dd>main search query</dd>
-
+<p/>
 <dt>filters</dt>
 <dd>list of filters to apply</dd>
-
+<p/>
 <dt>orFilters</dt>
 <dd>whether boolean OR should be aplied to the given list of filters if false
 boolean AND will be applied</dd>
-
+<p/>
 <dt>facetRequests</dt>
 <dd>list of facets to be returned</dd>
-
+<p/>
 <dt>sortFields</dt>
 <dd>optional list of sort fields for hardcoded sorting. If not given,
 relevance sort order will be used</dd>
-
+<p/>
 <dt>offset</dt>
 <dd>from which hit to return result</dd>
-
+<p/>
 <dt>hitCount</dt>
 <dd>how many hits to return</dd>
-
+<p/>
 <dt>returnFields</dt>
 <dd>which index fields to be returned</dd>
-
+<p/>
 <dt>groupBy</dt>
 <dd>field name of the field to do grouping by</dd>
-
+<p/>
 <dt>groupFacets</dt>
 <dd>whether facets counts should contain number of groups</dd>
-
+<p/>
 <dt>groupItemsCount</dt>
 <dd>how many hits in each group to return</dd>
-
+<p/>
 <dt>groupItemsSort</dt>
 <dd>how to sort items within the group, default is score</dd>
-
+<p/>
 <dt>groupItemsSortAscending</dt>
 <dd>whether to sort items within the group ascending</dd>
 </dl>
@@ -281,15 +284,15 @@ relevance sort order will be used</dd>
 </table><br/><dl>
 <dt>indexId</dt>
 <dd>id of the index to fetch context item data from</dd>
-
+<p/>
 <dt>fieldName</dt>
 <dd>the field name of the item's unique identifier within the items index</dd>
 <dd>for example: 'sku' for items 'products'</dd>
-
+<p/>
 <dt>contextItemId</dt>
 <dd>actual item's identifier</dd>
 <dd>for example: actual sku of the product</dd>
-
+<p/>
 <dt>role</dt>
 <dd>role of the item within the context, used to address the item in the
 recommendation script.</dd>
@@ -303,29 +306,29 @@ page</dd>
 <tr><td>3</td><td>contextItems</td><td><code>list&lt;<code><a href="p13n.html#Struct_ContextItem">ContextItem</a></code>&gt;</code></td><td></td><td>default</td><td></td></tr>
 <tr><td>4</td><td>minHitCount</td><td><code>i32</code></td><td></td><td>default</td><td></td></tr>
 <tr><td>5</td><td>excludeVariantIds</td><td><code>set&lt;<code>string</code>&gt;</code></td><td></td><td>default</td><td></td></tr>
-<tr><td>6</td><td>scope</td><td><code>string</code></td><td></td><td>default</td><td><code>"system_rec"</code></td></tr>
-<tr><td>70</td><td>withRelaxation</td><td><code>bool</code></td><td></td><td>default</td><td><code>false</code></td></tr>
+<tr><td>6</td><td>scope</td><td><code>string</code></td><td></td><td>default</td><td>"system_rec"</td></tr>
+<tr><td>70</td><td>withRelaxation</td><td><code>bool</code></td><td></td><td>default</td><td>0</td></tr>
 </table><br/><dl>
 <dt>choiceId</dt>
 <dd>personalization choice identificator</dd>
-
+<p/>
 <dt>simpleSearchQuery</dt>
 <dd>search query in a case of recommendation and search inquiries</dd>
-
+<p/>
 <dt>contextItems</dt>
 <dd>context items for recommendations</dd>
-
+<p/>
 <dt>minHitCount</dt>
 <dd>minimal hit count to return for recommendations.</dd>
 <dd>if higher priority recommendation strategy yields less results, next
 strategy is tried</dd>
-
+<p/>
 <dt>excludeVariantIds</dt>
 <dd>set of variantIds to be excluded from result</dd>
-
+<p/>
 <dt>scope</dt>
 <dd>choice source to be used</dd>
-
+<p/>
 <dt>withRelaxation</dt>
 <dd>if search relaxation should be used</dd>
 </dl>
@@ -346,11 +349,11 @@ strategy is tried</dd>
 </table><br/><dl>
 <dt>profileId</dt>
 <dd>profile (visitor) identificator</dd>
-
+<p/>
 <dt>inquiries</dt>
 <dd>list of inquiries to be executed sequentially.</dd>
 <dd>Inquiries with higher index may depend from those with lower index.</dd>
-
+<p/>
 <dt>requestContext</dt>
 <dd>context of the request</dd>
 </dl>
@@ -361,7 +364,7 @@ strategy is tried</dd>
 </table><br/><dl>
 <dt>fieldName</dt>
 <dd>name of the facet field</dd>
-
+<p/>
 <dt>values</dt>
 <dd>list of facet values</dd>
 </dl>
@@ -371,15 +374,15 @@ strategy is tried</dd>
 <tr><td>2</td><td>score</td><td><code>double</code></td><td></td><td>default</td><td></td></tr>
 <tr><td>30</td><td>scenarioId</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
 </table><br/>item found
-
+<p/>
 <dl>
 <dt>values</dt>
 <dd>map containing name of the field and list of values as strings</dd>
 <dd>if index contains no value for a field, empty array will be returned.</dd>
-
+<p/>
 <dt>score</dt>
 <dd>index score of the hit</dd>
-
+<p/>
 <dt>scenarioId</dt>
 <dd>source scenarioId in case of mixed recommendations modes</dd>
 </dl>
@@ -389,14 +392,14 @@ strategy is tried</dd>
 <tr><td>20</td><td>totalHitCount</td><td><code>i64</code></td><td></td><td>default</td><td></td></tr>
 <tr><td>30</td><td>hits</td><td><code>list&lt;<code><a href="p13n.html#Struct_Hit">Hit</a></code>&gt;</code></td><td></td><td>default</td><td></td></tr>
 </table><br/>grouped item found
-
+<p/>
 <dl>
 <dt>groupValue</dt>
 <dd>value of the groupBy field</dd>
-
+<p/>
 <dt>totalHitCount</dt>
 <dd>total hits count within the group</dd>
-
+<p/>
 <dt>hits</dt>
 <dd>group hits</dd>
 </dl>
@@ -410,17 +413,17 @@ strategy is tried</dd>
 </table><br/><dl>
 <dt>hits</dt>
 <dd>list of hits found for given SimpleSearchQuery</dd>
-
+<p/>
 <dt>facetResponses</dt>
 <dd>list of requested facets or null if none requested</dd>
-
+<p/>
 <dt>totalHitCount</dt>
 <dd>total number of hits; -1 in case of mixed recommendation strategy</dd>
-
+<p/>
 <dt>queryText</dt>
 <dd>relaxation query text for relaxation results or requested queryText for a
 regular SearchResult</dd>
-
+<p/>
 <dt>hitsGroups</dt>
 <dd>grouped hits; not null when corresponding SimplSearchQuery has
 groupBy!=null </dd>
@@ -439,18 +442,18 @@ groupBy!=null </dd>
 </table><br/><dl>
 <dt>variantId</dt>
 <dd>id of the personalized variant</dd>
-
+<p/>
 <dt>scenarioId</dt>
 <dd>scenario identificator used to produce recommendation result or search
 result personalization</dd>
-
+<p/>
 <dt>searchResult</dt>
 <dd>result of the search request for recommendations and search requests</dd>
-
+<p/>
 <dt>searchResultTitle</dt>
 <dd>recommendation's result title localized in language requested in
 corresponding SimpleSearchQuery</dd>
-
+<p/>
 <dt>searchRelaxation</dt>
 <dd>When the service considers queryText invalid, it will evaluate and return
 relaxations if it is requested in corresponding ChoiceInquiry and if
@@ -481,7 +484,7 @@ ChoiceInquiry
 <dt>choiceInquiry</dt>
 <dd><b>deprecated</b> - use choiceInquiries instead.</dd>
 <dd>If choiceInquiries is given this field will be ignored</dd>
-
+<p/>
 <dt>choiceInquiries</dt>
 <dd>list of ChoiceInquiries to be executed sequentially.</dd>
 <dd>Note that list items can depend of items before in list</dd>
@@ -494,7 +497,7 @@ ChoiceInquiry
 <dt>variants</dt>
 <dd><b>deprecated</b> - contains non-null value only if
 corresponding BatchChoiceRequest had only one ChoiceInquiry</dd>
-
+<p/>
 <dt>selectedVariants</dt>
 <dd>outer list corresponds to profileIds given in BatchChoiceRequest, while
 inner list corresponds to list of ChoiceInquiries from BatchChoiceRequest</dd>
@@ -512,12 +515,12 @@ inner list corresponds to list of ChoiceInquiries from BatchChoiceRequest</dd>
 <tr><td>31</td><td>queryText</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
 <tr><td>41</td><td>suggestionsHitCount</td><td><code>i32</code></td><td></td><td>default</td><td></td></tr>
 <tr><td>51</td><td>highlight</td><td><code>bool</code></td><td></td><td>default</td><td></td></tr>
-<tr><td>61</td><td>highlightPre</td><td><code>string</code></td><td></td><td>default</td><td><code>"&lt;em&gt;"</code></td></tr>
-<tr><td>71</td><td>highlightPost</td><td><code>string</code></td><td></td><td>default</td><td><code>"&lt;/em&gt;"</code></td></tr>
+<tr><td>61</td><td>highlightPre</td><td><code>string</code></td><td></td><td>default</td><td>"&lt;em&gt;"</td></tr>
+<tr><td>71</td><td>highlightPost</td><td><code>string</code></td><td></td><td>default</td><td>"&lt;/em&gt;"</td></tr>
 </table><br/></div><div class="definition"><h3 id="Struct_AutocompleteRequest">Struct: AutocompleteRequest</h3>
 <table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
 <tr><td>11</td><td>userRecord</td><td><code><a href="p13n.html#Struct_UserRecord">UserRecord</a></code></td><td></td><td>default</td><td></td></tr>
-<tr><td>21</td><td>scope</td><td><code>string</code></td><td></td><td>default</td><td><code>"system_rec"</code></td></tr>
+<tr><td>21</td><td>scope</td><td><code>string</code></td><td></td><td>default</td><td>"system_rec"</td></tr>
 <tr><td>31</td><td>choiceId</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
 <tr><td>41</td><td>profileId</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
 <tr><td>51</td><td>requestContext</td><td><code><a href="p13n.html#Struct_RequestContext">RequestContext</a></code></td><td></td><td>default</td><td></td></tr>
@@ -529,7 +532,18 @@ inner list corresponds to list of ChoiceInquiries from BatchChoiceRequest</dd>
 <table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
 <tr><td>11</td><td>hits</td><td><code>list&lt;<code><a href="p13n.html#Struct_AutocompleteHit">AutocompleteHit</a></code>&gt;</code></td><td></td><td>default</td><td></td></tr>
 <tr><td>21</td><td>prefixSearchResult</td><td><code><a href="p13n.html#Struct_SearchResult">SearchResult</a></code></td><td></td><td>default</td><td></td></tr>
-</table><br/></div><div class="definition"><h3 id="Struct_P13nServiceException">Exception: P13nServiceException</h3>
+</table><br/></div><div class="definition"><h3 id="Struct_ChoiceUpdateRequest">Struct: ChoiceUpdateRequest</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>11</td><td>userRecord</td><td><code><a href="p13n.html#Struct_UserRecord">UserRecord</a></code></td><td>user record identifying the client<br/></td><td>default</td><td></td></tr>
+<tr><td>21</td><td>choiceId</td><td><code>string</code></td><td>Identifier of the choice to be changed. If it is not given, a new choice will be created<br/></td><td>default</td><td></td></tr>
+<tr><td>31</td><td>variantIds</td><td><code>map&lt;<code>string</code>, <code>i32</code>&gt;</code></td><td>Map containing variant identifier and corresponding positive integer weight.<br/>If for a choice there is no learned rule which can be applied, weights of<br/>variants will be used for variants random distribution.<br/>Higher weight makes corresponding variant more probable.<br/></td><td>default</td><td></td></tr>
+</table><br/>Request object for changing the choice, that is changing possible variants
+or their random distribution
+<br/></div><div class="definition"><h3 id="Struct_ChoiceUpdateResponse">Struct: ChoiceUpdateResponse</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>11</td><td>choiceId</td><td><code>string</code></td><td>Identifier of the changed choice. If no id is given in corresponding<br/>ChoiceUpdateRequest, new choice (and new id) will be created and retuned.<br/></td><td>default</td><td></td></tr>
+</table><br/>Server response for one ChoiceUpdateRequest
+<br/></div><div class="definition"><h3 id="Struct_P13nServiceException">Exception: P13nServiceException</h3>
 <table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
 <tr><td>1</td><td>message</td><td><code>string</code></td><td></td><td>required</td><td></td></tr>
 </table><br/></div><hr/><h2 id="Services">Services</h2>
@@ -540,10 +554,10 @@ inner list corresponds to list of ChoiceInquiries from BatchChoiceRequest</dd>
 </pre><dl>
 <dt>@param choiceRequest</dt>
 <dd>the ChoiceRequest object containing your request</dd>
-
+<p/>
 <dt>@return</dt>
 <dd>a ChoiceResponse object containing the list of variants</dd>
-
+<p/>
 <dt>@throws P13nServiceException</dt>
 <dd>an exception containing an error message</dd>
 </dl>
@@ -553,10 +567,10 @@ inner list corresponds to list of ChoiceInquiries from BatchChoiceRequest</dd>
 </pre><dl>
 <dt>@param batchChoiceRequest</dt>
 <dd>the BatchChoiceRequest object containing your requests</dd>
-
+<p/>
 <dt>@return</dt>
 <dd>a BatchChoiceResponse object containing the list of variants for each request</dd>
-
+<p/>
 <dt>@throws P13nServiceException</dt>
 <dd>an exception containing an error message</dd>
 </dl>
@@ -566,11 +580,15 @@ inner list corresponds to list of ChoiceInquiries from BatchChoiceRequest</dd>
 </pre><dl>
 <dt>@param request</dt>
 <dd>the AutocompleteRequest object containing your request</dd>
-
+<p/>
 <dt>@return</dt>
 <dd>a AutocompleteResponse object containing the list of hits</dd>
-
+<p/>
 <dt>@throws P13nServiceException</dt>
 <dd>an exception containing an error message</dd>
 </dl>
+<br/></div><div class="definition"><h4 id="Fn_P13nService_updateChoice">Function: P13nService.updateChoice</h4>
+<pre><code><a href="p13n.html#Struct_ChoiceUpdateResponse">ChoiceUpdateResponse</a></code> updateChoice(<code><a href="p13n.html#Struct_ChoiceUpdateRequest">ChoiceUpdateRequest</a></code> choiceUpdateRequest)
+    throws <code><a href="p13n.html#Struct_P13nServiceException">P13nServiceException</a></code>
+</pre>Updating a choice or creating a new choice if choiceId is not given in choiceUpdateRequest.
 <br/></div></div></body></html>

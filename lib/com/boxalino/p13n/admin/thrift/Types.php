@@ -149,6 +149,510 @@ class ProfilePropertyValue {
 
 }
 
+class Choice {
+  static $_TSPEC;
+
+  public $id = null;
+  public $selections = null;
+  public $variantIds = null;
+  public $sticky = null;
+  public $traced = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        11 => array(
+          'var' => 'id',
+          'type' => TType::STRING,
+          ),
+        21 => array(
+          'var' => 'selections',
+          'type' => TType::MAP,
+          'ktype' => TType::STRING,
+          'vtype' => TType::STRING,
+          'key' => array(
+            'type' => TType::STRING,
+          ),
+          'val' => array(
+            'type' => TType::STRING,
+            ),
+          ),
+        31 => array(
+          'var' => 'variantIds',
+          'type' => TType::MAP,
+          'ktype' => TType::STRING,
+          'vtype' => TType::I32,
+          'key' => array(
+            'type' => TType::STRING,
+          ),
+          'val' => array(
+            'type' => TType::I32,
+            ),
+          ),
+        41 => array(
+          'var' => 'sticky',
+          'type' => TType::BOOL,
+          ),
+        51 => array(
+          'var' => 'traced',
+          'type' => TType::BOOL,
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['id'])) {
+        $this->id = $vals['id'];
+      }
+      if (isset($vals['selections'])) {
+        $this->selections = $vals['selections'];
+      }
+      if (isset($vals['variantIds'])) {
+        $this->variantIds = $vals['variantIds'];
+      }
+      if (isset($vals['sticky'])) {
+        $this->sticky = $vals['sticky'];
+      }
+      if (isset($vals['traced'])) {
+        $this->traced = $vals['traced'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'Choice';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case 11:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->id);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 21:
+          if ($ftype == TType::MAP) {
+            $this->selections = array();
+            $_size0 = 0;
+            $_ktype1 = 0;
+            $_vtype2 = 0;
+            $xfer += $input->readMapBegin($_ktype1, $_vtype2, $_size0);
+            for ($_i4 = 0; $_i4 < $_size0; ++$_i4)
+            {
+              $key5 = '';
+              $val6 = '';
+              $xfer += $input->readString($key5);
+              $xfer += $input->readString($val6);
+              $this->selections[$key5] = $val6;
+            }
+            $xfer += $input->readMapEnd();
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 31:
+          if ($ftype == TType::MAP) {
+            $this->variantIds = array();
+            $_size7 = 0;
+            $_ktype8 = 0;
+            $_vtype9 = 0;
+            $xfer += $input->readMapBegin($_ktype8, $_vtype9, $_size7);
+            for ($_i11 = 0; $_i11 < $_size7; ++$_i11)
+            {
+              $key12 = '';
+              $val13 = 0;
+              $xfer += $input->readString($key12);
+              $xfer += $input->readI32($val13);
+              $this->variantIds[$key12] = $val13;
+            }
+            $xfer += $input->readMapEnd();
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 41:
+          if ($ftype == TType::BOOL) {
+            $xfer += $input->readBool($this->sticky);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 51:
+          if ($ftype == TType::BOOL) {
+            $xfer += $input->readBool($this->traced);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('Choice');
+    if ($this->id !== null) {
+      $xfer += $output->writeFieldBegin('id', TType::STRING, 11);
+      $xfer += $output->writeString($this->id);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->selections !== null) {
+      if (!is_array($this->selections)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('selections', TType::MAP, 21);
+      {
+        $output->writeMapBegin(TType::STRING, TType::STRING, count($this->selections));
+        {
+          foreach ($this->selections as $kiter14 => $viter15)
+          {
+            $xfer += $output->writeString($kiter14);
+            $xfer += $output->writeString($viter15);
+          }
+        }
+        $output->writeMapEnd();
+      }
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->variantIds !== null) {
+      if (!is_array($this->variantIds)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('variantIds', TType::MAP, 31);
+      {
+        $output->writeMapBegin(TType::STRING, TType::I32, count($this->variantIds));
+        {
+          foreach ($this->variantIds as $kiter16 => $viter17)
+          {
+            $xfer += $output->writeString($kiter16);
+            $xfer += $output->writeI32($viter17);
+          }
+        }
+        $output->writeMapEnd();
+      }
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->sticky !== null) {
+      $xfer += $output->writeFieldBegin('sticky', TType::BOOL, 41);
+      $xfer += $output->writeBool($this->sticky);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->traced !== null) {
+      $xfer += $output->writeFieldBegin('traced', TType::BOOL, 51);
+      $xfer += $output->writeBool($this->traced);
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
+class Scenario {
+  static $_TSPEC;
+
+  public $id = null;
+  public $localizedTitles = null;
+  public $queryP13nScript = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        11 => array(
+          'var' => 'id',
+          'type' => TType::STRING,
+          ),
+        21 => array(
+          'var' => 'localizedTitles',
+          'type' => TType::MAP,
+          'ktype' => TType::STRING,
+          'vtype' => TType::STRING,
+          'key' => array(
+            'type' => TType::STRING,
+          ),
+          'val' => array(
+            'type' => TType::STRING,
+            ),
+          ),
+        31 => array(
+          'var' => 'queryP13nScript',
+          'type' => TType::STRING,
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['id'])) {
+        $this->id = $vals['id'];
+      }
+      if (isset($vals['localizedTitles'])) {
+        $this->localizedTitles = $vals['localizedTitles'];
+      }
+      if (isset($vals['queryP13nScript'])) {
+        $this->queryP13nScript = $vals['queryP13nScript'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'Scenario';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case 11:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->id);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 21:
+          if ($ftype == TType::MAP) {
+            $this->localizedTitles = array();
+            $_size18 = 0;
+            $_ktype19 = 0;
+            $_vtype20 = 0;
+            $xfer += $input->readMapBegin($_ktype19, $_vtype20, $_size18);
+            for ($_i22 = 0; $_i22 < $_size18; ++$_i22)
+            {
+              $key23 = '';
+              $val24 = '';
+              $xfer += $input->readString($key23);
+              $xfer += $input->readString($val24);
+              $this->localizedTitles[$key23] = $val24;
+            }
+            $xfer += $input->readMapEnd();
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 31:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->queryP13nScript);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('Scenario');
+    if ($this->id !== null) {
+      $xfer += $output->writeFieldBegin('id', TType::STRING, 11);
+      $xfer += $output->writeString($this->id);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->localizedTitles !== null) {
+      if (!is_array($this->localizedTitles)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('localizedTitles', TType::MAP, 21);
+      {
+        $output->writeMapBegin(TType::STRING, TType::STRING, count($this->localizedTitles));
+        {
+          foreach ($this->localizedTitles as $kiter25 => $viter26)
+          {
+            $xfer += $output->writeString($kiter25);
+            $xfer += $output->writeString($viter26);
+          }
+        }
+        $output->writeMapEnd();
+      }
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->queryP13nScript !== null) {
+      $xfer += $output->writeFieldBegin('queryP13nScript', TType::STRING, 31);
+      $xfer += $output->writeString($this->queryP13nScript);
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
+class RecommendationVariant {
+  static $_TSPEC;
+
+  public $id = null;
+  public $mode = "firstfull";
+  public $scenarioIds = null;
+
+  public function __construct($vals=null) {
+    if (!isset(self::$_TSPEC)) {
+      self::$_TSPEC = array(
+        11 => array(
+          'var' => 'id',
+          'type' => TType::STRING,
+          ),
+        21 => array(
+          'var' => 'mode',
+          'type' => TType::STRING,
+          ),
+        31 => array(
+          'var' => 'scenarioIds',
+          'type' => TType::LST,
+          'etype' => TType::STRING,
+          'elem' => array(
+            'type' => TType::STRING,
+            ),
+          ),
+        );
+    }
+    if (is_array($vals)) {
+      if (isset($vals['id'])) {
+        $this->id = $vals['id'];
+      }
+      if (isset($vals['mode'])) {
+        $this->mode = $vals['mode'];
+      }
+      if (isset($vals['scenarioIds'])) {
+        $this->scenarioIds = $vals['scenarioIds'];
+      }
+    }
+  }
+
+  public function getName() {
+    return 'RecommendationVariant';
+  }
+
+  public function read($input)
+  {
+    $xfer = 0;
+    $fname = null;
+    $ftype = 0;
+    $fid = 0;
+    $xfer += $input->readStructBegin($fname);
+    while (true)
+    {
+      $xfer += $input->readFieldBegin($fname, $ftype, $fid);
+      if ($ftype == TType::STOP) {
+        break;
+      }
+      switch ($fid)
+      {
+        case 11:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->id);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 21:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->mode);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        case 31:
+          if ($ftype == TType::LST) {
+            $this->scenarioIds = array();
+            $_size27 = 0;
+            $_etype30 = 0;
+            $xfer += $input->readListBegin($_etype30, $_size27);
+            for ($_i31 = 0; $_i31 < $_size27; ++$_i31)
+            {
+              $elem32 = null;
+              $xfer += $input->readString($elem32);
+              $this->scenarioIds []= $elem32;
+            }
+            $xfer += $input->readListEnd();
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
+        default:
+          $xfer += $input->skip($ftype);
+          break;
+      }
+      $xfer += $input->readFieldEnd();
+    }
+    $xfer += $input->readStructEnd();
+    return $xfer;
+  }
+
+  public function write($output) {
+    $xfer = 0;
+    $xfer += $output->writeStructBegin('RecommendationVariant');
+    if ($this->id !== null) {
+      $xfer += $output->writeFieldBegin('id', TType::STRING, 11);
+      $xfer += $output->writeString($this->id);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->mode !== null) {
+      $xfer += $output->writeFieldBegin('mode', TType::STRING, 21);
+      $xfer += $output->writeString($this->mode);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->scenarioIds !== null) {
+      if (!is_array($this->scenarioIds)) {
+        throw new TProtocolException('Bad type in structure.', TProtocolException::INVALID_DATA);
+      }
+      $xfer += $output->writeFieldBegin('scenarioIds', TType::LST, 31);
+      {
+        $output->writeListBegin(TType::STRING, count($this->scenarioIds));
+        {
+          foreach ($this->scenarioIds as $iter33)
+          {
+            $xfer += $output->writeString($iter33);
+          }
+        }
+        $output->writeListEnd();
+      }
+      $xfer += $output->writeFieldEnd();
+    }
+    $xfer += $output->writeFieldStop();
+    $xfer += $output->writeStructEnd();
+    return $xfer;
+  }
+
+}
+
 class P13nServiceException extends TException {
   static $_TSPEC;
 
