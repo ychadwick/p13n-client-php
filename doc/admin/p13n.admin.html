@@ -12,13 +12,22 @@
 <td>p13n.admin</td><td><a href="#Svc_P13nAdminService">P13nAdminService</a><br/>
 <ul>
 <li><a href="#Fn_P13nAdminService_command">command</a></li>
+<li><a href="#Fn_P13nAdminService_persistChoice">persistChoice</a></li>
+<li><a href="#Fn_P13nAdminService_persistRecommendationVariant">persistRecommendationVariant</a></li>
+<li><a href="#Fn_P13nAdminService_persistScenario">persistScenario</a></li>
 <li><a href="#Fn_P13nAdminService_replaceProfileProperties">replaceProfileProperties</a></li>
+<li><a href="#Fn_P13nAdminService_retrieveChoice">retrieveChoice</a></li>
+<li><a href="#Fn_P13nAdminService_retrieveRecommendationVariant">retrieveRecommendationVariant</a></li>
+<li><a href="#Fn_P13nAdminService_retrieveScenario">retrieveScenario</a></li>
 <li><a href="#Fn_P13nAdminService_saveProfileProperties">saveProfileProperties</a></li>
 <li><a href="#Fn_P13nAdminService_uploadChoiceConfiguration">uploadChoiceConfiguration</a></li>
 </ul>
 </td>
-<td><a href="#Struct_P13nServiceException">P13nServiceException</a><br/>
+<td><a href="#Struct_Choice">Choice</a><br/>
+<a href="#Struct_P13nServiceException">P13nServiceException</a><br/>
 <a href="#Struct_ProfilePropertyValue">ProfilePropertyValue</a><br/>
+<a href="#Struct_RecommendationVariant">RecommendationVariant</a><br/>
+<a href="#Struct_Scenario">Scenario</a><br/>
 </td>
 <td></code></td>
 </tr></table>
@@ -29,6 +38,23 @@
 <tr><td>2</td><td>propertyName</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
 <tr><td>3</td><td>propertyValue</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
 <tr><td>4</td><td>confidence</td><td><code>i32</code></td><td></td><td>default</td><td></td></tr>
+</table><br/></div><div class="definition"><h3 id="Struct_Choice">Struct: Choice</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>11</td><td>id</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>21</td><td>selections</td><td><code>map&lt;<code>string</code>, <code>string</code>&gt;</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>31</td><td>variantIds</td><td><code>map&lt;<code>string</code>, <code>i32</code>&gt;</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>41</td><td>sticky</td><td><code>bool</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>51</td><td>traced</td><td><code>bool</code></td><td></td><td>default</td><td></td></tr>
+</table><br/></div><div class="definition"><h3 id="Struct_Scenario">Struct: Scenario</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>11</td><td>id</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>21</td><td>localizedTitles</td><td><code>map&lt;<code>string</code>, <code>string</code>&gt;</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>31</td><td>queryP13nScript</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+</table><br/></div><div class="definition"><h3 id="Struct_RecommendationVariant">Struct: RecommendationVariant</h3>
+<table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
+<tr><td>11</td><td>id</td><td><code>string</code></td><td></td><td>default</td><td></td></tr>
+<tr><td>21</td><td>mode</td><td><code>string</code></td><td></td><td>default</td><td>"firstfull"</td></tr>
+<tr><td>31</td><td>scenarioIds</td><td><code>list&lt;<code>string</code>&gt;</code></td><td></td><td>default</td><td></td></tr>
 </table><br/></div><div class="definition"><h3 id="Struct_P13nServiceException">Exception: P13nServiceException</h3>
 <table class="table-bordered table-striped table-condensed"><thead><th>Key</th><th>Field</th><th>Type</th><th>Description</th><th>Requiredness</th><th>Default value</th></thead>
 <tr><td>1</td><td>message</td><td><code>string</code></td><td></td><td>required</td><td></td></tr>
@@ -40,10 +66,10 @@
 </pre><dl>
 <dt>@param xmlPayload</dt>
 <dd>the XML to upload as raw data</dd>
-
+<p/>
 <dt>@return</dt>
 <dd>binary data</dd>
-
+<p/>
 <dt>@throws P13nServiceException</dt>
 <dd>an exception containing an error message</dd>
 </dl>
@@ -53,10 +79,10 @@
 </pre><dl>
 <dt>@param profilePropertyValues</dt>
 <dd>the list of ProfilePropertyValue objects to save</dd>
-
+<p/>
 <dt>@return</dt>
 <dd>an integer</dd>
-
+<p/>
 <dt>@throws P13nServiceException</dt>
 <dd>an exception containing an error message</dd>
 </dl>
@@ -66,10 +92,10 @@
 </pre><dl>
 <dt>@param profilePropertyValues</dt>
 <dd>the list of ProfilePropertyValue objects to save</dd>
-
+<p/>
 <dt>@return</dt>
 <dd>an integer</dd>
-
+<p/>
 <dt>@throws P13nServiceException</dt>
 <dd>an exception containing an error message</dd>
 </dl>
@@ -79,11 +105,29 @@
 </pre><dl>
 <dt>@param command</dt>
 <dd>the command to execute</dd>
-
+<p/>
 <dt>@return</dt>
 <dd>a string containing the result of the command</dd>
-
+<p/>
 <dt>@throws P13nServiceException</dt>
 <dd>an exception containing an error message</dd>
 </dl>
-<br/></div></div></body></html>
+<br/></div><div class="definition"><h4 id="Fn_P13nAdminService_retrieveChoice">Function: P13nAdminService.retrieveChoice</h4>
+<pre><code><a href="p13n.admin.html#Struct_Choice">Choice</a></code> retrieveChoice(<code>string</code> id)
+    throws <code><a href="p13n.admin.html#Struct_P13nServiceException">P13nServiceException</a></code>
+</pre></div><div class="definition"><h4 id="Fn_P13nAdminService_retrieveScenario">Function: P13nAdminService.retrieveScenario</h4>
+<pre><code><a href="p13n.admin.html#Struct_Scenario">Scenario</a></code> retrieveScenario(<code>string</code> id)
+    throws <code><a href="p13n.admin.html#Struct_P13nServiceException">P13nServiceException</a></code>
+</pre></div><div class="definition"><h4 id="Fn_P13nAdminService_retrieveRecommendationVariant">Function: P13nAdminService.retrieveRecommendationVariant</h4>
+<pre><code><a href="p13n.admin.html#Struct_RecommendationVariant">RecommendationVariant</a></code> retrieveRecommendationVariant(<code>string</code> id)
+    throws <code><a href="p13n.admin.html#Struct_P13nServiceException">P13nServiceException</a></code>
+</pre></div><div class="definition"><h4 id="Fn_P13nAdminService_persistChoice">Function: P13nAdminService.persistChoice</h4>
+<pre><code>string</code> persistChoice(<code><a href="p13n.admin.html#Struct_Choice">Choice</a></code> choice)
+    throws <code><a href="p13n.admin.html#Struct_P13nServiceException">P13nServiceException</a></code>
+</pre></div><div class="definition"><h4 id="Fn_P13nAdminService_persistScenario">Function: P13nAdminService.persistScenario</h4>
+<pre><code>string</code> persistScenario(<code><a href="p13n.admin.html#Struct_Scenario">Scenario</a></code> scenario)
+    throws <code><a href="p13n.admin.html#Struct_P13nServiceException">P13nServiceException</a></code>
+</pre></div><div class="definition"><h4 id="Fn_P13nAdminService_persistRecommendationVariant">Function: P13nAdminService.persistRecommendationVariant</h4>
+<pre><code>string</code> persistRecommendationVariant(<code><a href="p13n.admin.html#Struct_RecommendationVariant">RecommendationVariant</a></code> recommendationVariant)
+    throws <code><a href="p13n.admin.html#Struct_P13nServiceException">P13nServiceException</a></code>
+</pre></div></div></body></html>

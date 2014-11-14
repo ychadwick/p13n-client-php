@@ -535,6 +535,39 @@ struct AutocompleteResponse {
     21: SearchResult prefixSearchResult
 }
 
+/**
+ * Request object for changing the choice, that is changing possible variants 
+ * or their random distribution
+ */
+struct ChoiceUpdateRequest {
+    /**
+     * user record identifying the client
+     */
+    11: UserRecord userRecord,
+    /**
+     * Identifier of the choice to be changed. If it is not given, a new choice will be created 
+     */
+    21: string choiceId,
+    /**
+     * Map containing variant identifier and corresponding positive integer weight.
+     * If for a choice there is no learned rule which can be applied, weights of 
+     * variants will be used for variants random distribution.
+     * Higher weight makes corresponding variant more probable.
+     */
+    31: map<string, i32> variantIds
+}
+
+ /**
+  * Server response for one ChoiceUpdateRequest
+  */
+struct ChoiceUpdateResponse {
+    /**
+     * Identifier of the changed choice. If no id is given in corresponding 
+     * ChoiceUpdateRequest, new choice (and new id) will be created and retuned.
+     */
+    11: string choiceId
+}
+
 exception P13nServiceException {
   1: required string message
 }
@@ -581,4 +614,9 @@ service P13nService {
  * </dl>
  */
   AutocompleteResponse autocomplete(AutocompleteRequest request) throws (1: P13nServiceException p13nServiceException)
+  
+/**
+ * Updating a choice or creating a new choice if choiceId is not given in choiceUpdateRequest.
+ */
+  ChoiceUpdateResponse updateChoice(ChoiceUpdateRequest choiceUpdateRequest) throws (1: P13nServiceException p13nServiceException)
 }

@@ -8,6 +8,26 @@ struct ProfilePropertyValue {
   4: i32 confidence
 }
 
+struct Choice {
+  11: string id,
+  21: map<string, string> selections,
+  31: map<string, i32> variantIds,
+  41: bool sticky,
+  51: bool traced 
+}
+
+struct Scenario {
+  11: string id,
+  21: map<string, string> localizedTitles,
+  31: string queryP13nScript
+}
+
+struct RecommendationVariant {
+  11: string id,
+  21: string mode = "firstfull",
+  31: list<string> scenarioIds
+}
+
 exception P13nServiceException {
   1: required string message
 }
@@ -68,4 +88,11 @@ service P13nAdminService {
  * </dl>
  */
   string command(string command) throws (1: P13nServiceException p13nServiceException),
+  
+  Choice retrieveChoice(string id) throws (1: P13nServiceException p13nServiceException),
+  Scenario retrieveScenario(string id) throws (1: P13nServiceException p13nServiceException),
+  RecommendationVariant retrieveRecommendationVariant(string id) throws (1: P13nServiceException p13nServiceException),
+  string persistChoice(Choice choice) throws (1: P13nServiceException p13nServiceException),
+  string persistScenario(Scenario scenario) throws (1: P13nServiceException p13nServiceException),
+  string persistRecommendationVariant(RecommendationVariant recommendationVariant) throws (1: P13nServiceException p13nServiceException),
 }
