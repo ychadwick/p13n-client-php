@@ -293,7 +293,8 @@ struct ChoiceInquiry {
   4: i32 minHitCount,
   5: set<string> excludeVariantIds,
   6: string scope = "system_rec",
-  70: bool withRelaxation = false
+  70: bool withRelaxation = false,
+  80: bool withSemanticFiltering = false
 }
 
 /**
@@ -448,7 +449,8 @@ struct Variant {
   2: string scenarioId,
   3: SearchResult searchResult,
   4: string searchResultTitle,
-  50: SearchRelaxation searchRelaxation
+  50: SearchRelaxation searchRelaxation,
+  60: List<SearchResult> semanticFilteringResults
 }
 
 /**
