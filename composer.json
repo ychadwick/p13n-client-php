@@ -1,5 +1,5 @@
 {
-  "name": "yorkie/p13n-client-php",
+  "name": "ychadwick/p13n-client-php",
   "license": "MIT",
   "type": "library",
   "autoload": {
