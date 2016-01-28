@@ -1,0 +1,20 @@
+{
+  "name": "yorkie/p13n-client-php",
+  "license": "MIT",
+  "type": "library",
+  "autoload": {
+    "psr-0": {
+      "Thrift": "lib/Thrift" ,
+      "com\\boxalino\\p13n": "lib"
+    }
+  },
+  "require": {
+    "php": ">=5.3.9"
+  },
+  "config": {
+    "bin-dir": "bin",
+    "platform": {
+      "php": "5.3.9"
+    }
+  }
+}
