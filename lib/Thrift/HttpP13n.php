@@ -1,5 +1,5 @@
 <?php
-
+namespace Thrift;
 /**
  * Class P13n
  * @method \com\boxalino\p13n\api\thrift\ChoiceResponse choose(\com\boxalino\p13n\api\thrift\ChoiceRequest $choiceRequest)
