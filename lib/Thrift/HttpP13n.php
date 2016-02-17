@@ -3,6 +3,7 @@ namespace Thrift;
 /**
  * Class P13n
  * @method \com\boxalino\p13n\api\thrift\ChoiceResponse choose(\com\boxalino\p13n\api\thrift\ChoiceRequest $choiceRequest)
+ * @method \com\boxalino\p13n\api\thrift\AutocompleteResponse autocomplete(\com\boxalino\p13n\api\thrift\AutocompleteRequest $autocompleteRequest)
  */
 class HttpP13n
 {
